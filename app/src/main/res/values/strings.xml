@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ScheduleSample</string>
+    <string name="location_error_passive_network">Não foi possivel recuperar localização pela rede!</string>
+</resources>
