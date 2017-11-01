@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+
+def PlayServicesVersion = '11.0.2'
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -17,6 +20,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        production {
+            buildConfigField "String", "REST_CUPOM_URL", "\"https://api.ticket.com.br/coupons/\""
+            buildConfigField "boolean", "MOCKUP_FILE", "false"
+        }
+    }
 }
 
 dependencies {
@@ -26,5 +36,17 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.squareup.okhttp:okhttp:2.7.2'
+    compile "com.google.android.gms:play-services-maps:$PlayServicesVersion"
+    compile "com.google.android.gms:play-services-location:$PlayServicesVersion"
+    compile "com.google.android.gms:play-services-analytics:$PlayServicesVersion"
+    compile "com.google.android.gms:play-services-gcm:$PlayServicesVersion"
+    compile "com.google.android.gms:play-services-ads:$PlayServicesVersion"
+
+    //compile 'com.squareup.okhttp3:logging-interceptor:3.+'
+    //compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+
     testCompile 'junit:junit:4.12'
 }

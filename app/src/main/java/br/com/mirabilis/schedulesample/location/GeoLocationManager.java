@@ -45,6 +45,21 @@ public class GeoLocationManager {
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
     }
 
+    public Location getLastKnownLocation() {
+        List<String> providers = locationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            Location l = locationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                bestLocation = l;
+            }
+        }
+        return bestLocation;
+    }
+
     public Location getLastLocation() {
         return lastLocation;
     }
@@ -151,8 +166,12 @@ public class GeoLocationManager {
             Location networkLocation = null;
             Location gpsLocation = null;
 
-            if (providers.contains(LocationManager.GPS_PROVIDER)) gpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (providers.contains(LocationManager.NETWORK_PROVIDER)) networkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (providers.contains(LocationManager.GPS_PROVIDER)){
+                gpsLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            }
+            if (providers.contains(LocationManager.NETWORK_PROVIDER)) {
+                networkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
 
             if(gpsLocation!=null && networkLocation!=null){
                 if(gpsLocation.getTime() > networkLocation.getTime()){

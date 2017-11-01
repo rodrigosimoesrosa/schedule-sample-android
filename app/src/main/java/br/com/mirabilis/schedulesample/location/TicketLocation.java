@@ -12,7 +12,7 @@ import android.provider.Settings;
 
 import java.util.Random;
 
-import br.com.ticket.mobile.R;
+import br.com.mirabilis.schedulesample.R;
 
 /**
  * This class is responsible to get information about {@link Location} of smartphone.
